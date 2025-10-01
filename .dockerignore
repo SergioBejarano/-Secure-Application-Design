@@ -1,0 +1,33 @@
+# Ignorar archivos innecesarios para Docker
+.git
+.gitignore
+README.md
+*.md
+.env*
+node_modules
+.vscode
+.idea
+*.iml
+.DS_Store
+Thumbs.db
+
+# Archivos de Maven que no se necesitan
+.mvn
+mvnw
+mvnw.cmd
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp

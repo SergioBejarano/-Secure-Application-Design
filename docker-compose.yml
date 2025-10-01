@@ -4,9 +4,9 @@ services:
     container_name: propertymanager-mysql
     environment:
       MYSQL_DATABASE: propertymanager
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: propertymanager2024!
       MYSQL_USER: app_user
-      MYSQL_PASSWORD: app_password
+      MYSQL_PASSWORD: app_password2024!
     ports:
       - "3306:3306"
     volumes:
@@ -15,32 +15,36 @@ services:
       - app-network
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ppropertymanager2024!"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 30s
+    restart: unless-stopped
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # Para desarrollo local comentar image y descomentar build
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    # Para producción usar imagen de Docker Hub
+    image: sergiobejarano/spring-sergio:latest
     container_name: propertymanager-app
     environment:
-      PORT: 9000
+      PORT: 8081
       DB_HOST: mysql
-      DB_USER: root
-      DB_PASSWORD: root
+      DB_USER: app_user
+      DB_PASSWORD: app_password2024!
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/propertymanager?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_USERNAME: app_user
+      SPRING_DATASOURCE_PASSWORD: app_password2024!
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_SHOW_SQL: false
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
     ports:
-      - "9000:9000"
+      - "8081:8081"
     depends_on:
       mysql:
         condition: service_healthy
