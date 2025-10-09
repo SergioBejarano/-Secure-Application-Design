@@ -135,9 +135,14 @@ On Apache server:
 
 <img width="1578" height="276" alt="image" src="https://github.com/user-attachments/assets/db139d3b-9087-43f9-8f6c-fb07e66dc06a" />
 
+
+<img width="2879" height="1631" alt="image" src="https://github.com/user-attachments/assets/8b55c274-9c55-426b-957b-5c755f07c23e" />
+
+
 On Spring server:
 
 <img width="1817" height="231" alt="image" src="https://github.com/user-attachments/assets/dc5f7fe7-cbd2-4c28-b811-30c283f51bb5" />
+<img width="2878" height="1628" alt="image" src="https://github.com/user-attachments/assets/ba039f99-417c-4e27-b0ca-51f085ece9fe" />
 
 ---
 
