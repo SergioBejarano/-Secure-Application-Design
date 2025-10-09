@@ -15,6 +15,10 @@ Click here:
 
 ## 1. Arquitectura de la Aplicación
 
+
+![Sin título (7)](https://github.com/user-attachments/assets/00bbd45d-de8c-4b66-b5d5-786e4e1eff69)
+
+
 - **Frontend:** HTML/CSS/JS servido por Apache HTTP Server con TLS en `https://sergioarep.duckdns.org`.
 
 - **Backend:** Spring Boot 3 (Java 17) desplegado en EC2 (Amazon Linux 2023) como contenedor Docker, accesible de forma segura por HTTPS en `https://sergioarep-spring.duckdns.org`.
