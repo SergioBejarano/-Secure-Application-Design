@@ -1,9 +1,59 @@
-// Configuración dinámica de API URL - funciona tanto local como en AWS
-const API_BASE = `${window.location.protocol}//${window.location.host}/api/properties`;
+// Base de la API absoluta al backend HTTPS
+const API_BASE = `https://sergioarep-spring.duckdns.org/api/properties`;
+
+let authHeader = null; 
+
+function buildAuthHeader(user, pass) {
+    return 'Basic ' + btoa(`${user}:${pass}`);
+}
+
+function requireAuthHeaders(json = false) {
+    if (!authHeader) return json ? { 'Content-Type': 'application/json' } : {};
+    return json
+        ? { 'Content-Type': 'application/json', 'Authorization': authHeader }
+        : { 'Authorization': authHeader };
+}
 
 document.addEventListener('DOMContentLoaded', function() {
-    initializeApp();
+    initializeLogin();
 });
+
+function initializeLogin() {
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value;
+            authHeader = buildAuthHeader(user, pass);
+            const ok = await pingAuth();
+            if (ok) {
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('app-container').style.display = '';
+                initializeApp();
+            } else {
+                showLoginMessage('Credenciales inválidas. Intenta nuevamente.', 'error');
+            }
+        });
+    }
+}
+
+async function pingAuth() {
+    try {
+        const resp = await fetch(API_BASE, { headers: requireAuthHeaders(false) });
+        return resp.status !== 401; // si no es 401, considerarlo válido
+    } catch (e) {
+        return false;
+    }
+}
+
+function showLoginMessage(msg, type) {
+    const el = document.getElementById('loginResponse');
+    if (!el) return;
+    el.textContent = msg;
+    el.className = `response ${type}`;
+    el.style.display = 'block';
+}
 
 function initializeApp() {
     document.getElementById('createForm').addEventListener('submit', createProperty);
@@ -32,7 +82,7 @@ async function createProperty(e) {
     try {
         const response = await fetch(API_BASE, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: requireAuthHeaders(true),
             body: JSON.stringify(property)
         });
 
@@ -58,7 +108,7 @@ async function searchProperty() {
     }
 
     try {
-        const response = await fetch(`${API_BASE}/${id}`);
+    const response = await fetch(`${API_BASE}/${id}`, { headers: requireAuthHeaders(false) });
         
         if (response.ok) {
             const property = await response.json();
@@ -77,7 +127,7 @@ async function loadProperties() {
     container.innerHTML = '<div class="loading">Cargando...</div>';
 
     try {
-        const response = await fetch(API_BASE);
+    const response = await fetch(API_BASE, { headers: requireAuthHeaders(false) });
         
         if (response.ok) {
             const properties = await response.json();
@@ -148,7 +198,7 @@ async function updateProperty(e) {
     try {
         const response = await fetch(`${API_BASE}/${id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: requireAuthHeaders(true),
             body: JSON.stringify(property)
         });
 
@@ -168,7 +218,7 @@ async function deleteProperty(id) {
     if (!confirm('¿Eliminar esta propiedad?')) return;
 
     try {
-        const response = await fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
+    const response = await fetch(`${API_BASE}/${id}`, { method: 'DELETE', headers: requireAuthHeaders(false) });
 
         if (response.ok) {
             loadProperties();

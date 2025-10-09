@@ -7,7 +7,36 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="main-container">
+    <!-- Pantalla de inicio de sesión -->
+    <div id="login-container" class="main-container">
+        <header class="header">
+            <h1>Iniciar sesión</h1>
+            <p>Autenticación requerida para gestionar propiedades</p>
+        </header>
+        <div class="login-wrapper" style="display:flex;justify-content:center;align-items:center;min-height:60vh;">
+            <section class="section" id="loginCard" style="width:100%;max-width:420px;">
+                <form id="loginForm">
+                    <div class="form-row">
+                        <div class="form-group" style="flex:1">
+                            <label for="loginUser">Usuario</label>
+                            <input type="text" id="loginUser" placeholder="Ingresar usuario" required>
+                        </div>
+                        <div class="form-group" style="flex:1">
+                            <label for="loginPass">Contraseña</label>
+                            <input type="password" id="loginPass" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                    </div>
+                    <div id="loginResponse" class="response" style="display:none"></div>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <!-- Aplicación principal (oculta hasta iniciar sesión) -->
+    <div id="app-container" class="main-container" style="display:none">
         <header class="header">
             <h1>Gestión de Propiedades</h1>
             <p>Sistema para administrar propiedades inmobiliarias</p>
