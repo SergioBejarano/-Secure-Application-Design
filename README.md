@@ -77,6 +77,8 @@ sudo certbot --nginx -d sergioarep-spring.duckdns.org
 sudo certbot --apache -d sergioarep.duckdns.org --redirect
 ```
 
+<img width="1493" height="529" alt="Captura de pantalla 2025-10-01 154151" src="https://github.com/user-attachments/assets/11a6e731-d162-483e-be69-94f3bb3bc79a" />
+
 ---
 
 ## 5. Configuración de CORS
@@ -155,6 +157,7 @@ docker compose up -d
 ```bash
 curl -i -u admin:sergioadmin http://localhost:8081/api/properties
 ```
+<img width="1717" height="543" alt="image" src="https://github.com/user-attachments/assets/9d2fe11b-fbca-445a-a3a3-1a5f5cfe222c" />
 
 ---
 
