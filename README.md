@@ -2,6 +2,17 @@
 
 ---
 
+## 🎥 Video
+
+Click here:
+
+<p align="center">
+  <a href="https://youtu.be/wx2WXRo1kC8">
+    <img src="https://img.youtube.com/vi/wx2WXRo1kC8/hqdefault.jpg" 
+         alt="Property Manager: Functionality" width="700">
+  </a>
+</p>
+
 ## 1. Arquitectura de la Aplicación
 
 - **Frontend:** HTML/CSS/JS servido por Apache HTTP Server con TLS en `https://sergioarep.duckdns.org`.
